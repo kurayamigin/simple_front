@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Simple Page</title>
+
+    <!-- dependencies / plugins -->
+    <link rel="stylesheet" href="../plugins/paginated_table/css/paginate.css">
+    <link rel="stylesheet" href="../plugins/paginated_table/css/ligne.css">
+    <script type="text/javascript" src="../plugins/paginated_table/js/paginate.min.js"></script>
+    <script type="text/javascript" src="../plugins/jquery/jquery-3.6.0.min.js"></script>
+
+    <!-- my scripts -->
+    <script type="text/javascript" src="index.js"></script>
+
+    <style>
+        *{
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body onload="after_load()">
+<div class="container">
+    <div>
+        <h1>Countries</h1>
+    </div>
+    <div class="panel">
+        <div class="body">
+            <div class="input-group">
+                <label for="searchBox">Filtrar</label>
+                <input type="search" id="searchBox" placeholder="Filtrar...">
+            </div>
+        </div>
+    </div>
+    <table id="paginated-table" >
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Capital</th>
+            <th>Region</th>
+            <th>Languages</th>
+            <th>Population</th>
+            <th>Flag</th>
+        </tr>
+        </thead>
+        <tbody class="paginated-table table hover">
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
