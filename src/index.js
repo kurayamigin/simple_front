@@ -1,17 +1,16 @@
-
-$.ajax({
-    url: "https://restcountries.com/v3.1/all",
-    success: function ( countries ) {
-        console.log(countries)
-        HTMLTemplateCountries(countries);
-        initPagination();
-    }
-});
-
-
 function after_load () {
     //insert rows in table
+    $.ajax({
+        url: "https://restcountries.com/v3.1/all",
+        success: ( countries ) => {
+            console.log(countries)
+            //sorting by name
+            countries = countries.sort((a, b) => (a.name.official > b.name.official) ? 1 : -1);
 
+            HTMLTemplateCountries(countries);
+            initPagination();
+        }
+    });
 }
 
 function HTMLTemplateCountries(countries) {
@@ -24,7 +23,7 @@ function HTMLTemplateCountries(countries) {
         "<td>{population}</td>" +
         "<td><img class='flag' src='{flag_url}'></td>" +
         "</tr>"
-    countries.forEach(function (country) {
+    countries.forEach((country) => {
         var template = templateBase
             .replace("{name}", country.name.official)
             .replace("{capital}", (country.capital) ? country.capital[0] : "N/A")
