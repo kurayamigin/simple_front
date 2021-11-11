@@ -15,17 +15,17 @@ function after_load () {
 
 function HTMLTemplateCountries(countries) {
     let tableElement = $("#paginated-table > tbody");
-    let templateBase = "<tr> " +
-        "<td>{name}</td>" +
-        "<td>{capital}</td>" +
-        "<td>{region}</td>" +
-        "<td>{languages}</td>" +
-        "<td>{population}</td>" +
-        "<td><img class='flag' src='{flag_url}'></td>" +
-        "</tr>"
+    let templateBase = `<tr class='country_row' onclick="openWiki('{name}')">
+        <td>{name}</td>
+        <td>{capital}</td>
+        <td>{region}</td> 
+        <td>{languages}</td> 
+        <td>{population}</td> 
+        <td><img class='flag' src='{flag_url}'></td>
+        </tr>`
     countries.forEach((country) => {
         var template = templateBase
-            .replace("{name}", country.name.official)
+            .replaceAll("{name}", country.name.official)
             .replace("{capital}", (country.capital) ? country.capital[0] : "N/A")
             .replace("{region}", country.region)
             .replace("{languages}", getLanguages(country.languages)) //The api returns languages as keys in a object {eng: "english", sp:"spanish"}
@@ -33,10 +33,17 @@ function HTMLTemplateCountries(countries) {
             .replace("{flag_url}", country.flags.png);
         tableElement.append(template);
     });
-
 }
 
-
+function openWiki(country_name) {
+    $.ajax({
+        url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + country_name,
+        success: ( wiki ) => {
+            //sorting by name
+            bootbox.alert(wiki.extract_html);
+            }
+    });
+}
 function initPagination() {
     let options = {
         numberPerPage:5, //Cantidad de datos por pagina
