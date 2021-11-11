@@ -4,15 +4,21 @@ function after_document_load () {
 }
 
 function loadCountries() {
-    $.ajax({
-        url: "https://restcountries.com/v3.1/all",
-        success: ( countries ) => {
-            //sorting by name
+    let promise =
+        new Promise((resolve, reject) => $.ajax({
+            url: "https://restcountries.com/v3.1/all",
+            success: resolve,
+            error: reject
+    }));
+
+    promise
+        .then((countries) => {
             countries = countries.sort((a, b) => (a.name.official > b.name.official) ? 1 : -1);
             HTMLTemplateCountries(countries, $("#paginated-table > tbody"));
             initPagination('.paginated-table');
-        }
-    });
+        })
+        .catch(alert);
+
 }
 
 /** Append on tableElement, tr's for each country.
@@ -45,14 +51,10 @@ function HTMLTemplateCountries(countries, tableElement) {
  * Open modal with wikipedia api's html_text response.
  * @param country_name
  */
-function openWiki(country_name) {
-    $.ajax({
-        url: "https://en.wikipedia.org/api/rest_v1/page/summary/" + country_name,
-        success: ( wiki ) => {
-            //sorting by name
-            bootbox.alert(wiki.extract_html);
-            }
-    });
+async function openWiki(country_name) {
+    let wiki = await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + country_name);
+    let extract = await wiki.json();
+    bootbox.alert(extract.extract_html);
 }
 
 /**
