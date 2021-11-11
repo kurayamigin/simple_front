@@ -11,3 +11,15 @@
 .paginated-table img.flag {
     width: 120px;
 }
+
+.table>:not(:first-child) {
+    border-top: 1px solid var(--semi-light-grey);
+}
+
+.bootbox-close-button {
+    display: none;
+}
+
+.input-group input[type='search'] {
+    padding: 7px 10px;
+}
