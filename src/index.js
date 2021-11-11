@@ -61,15 +61,13 @@ function openWiki(country_name) {
  */
 function initPagination(table) {
     let options = {
-        numberPerPage:5, //Cantidad de datos por pagina
-        goBar:true, //Barra donde puedes digitar el numero de la pagina al que quiere ir
-        pageCounter:true, //Contador de paginas, en cual estas, de cuantas paginas
+        numberPerPage:5,
+        goBar:true,
+        pageCounter:true
     };
-
     let filterOptions = {
-        el:'#searchBox' //Caja de texto para filtrar, puede ser una clase o un ID
+        el:'#searchBox'
     };
-
     paginate.init(table, options, filterOptions);
 }
 
